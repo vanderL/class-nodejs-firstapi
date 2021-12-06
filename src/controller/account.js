@@ -2,8 +2,13 @@ const { customers } = require('../data');
 const { v4: uuidv4 } = require("uuid");
 
 function index(req, res) {
-
     return res.json(customers)
+}
+
+function findOne(req, res) {
+    const { customer } = req;
+
+    return res.json(customer);
 }
 
 function create(req, res) {
@@ -19,7 +24,18 @@ function create(req, res) {
     return res.status(201).send();
 }
 
+function update(req, res) {
+    const { name } = req.body;
+    const { customer } = req;
+
+    customer.name = name;
+
+    return res.json(customer)
+}
+
 module.exports = {
     index,
-    create
+    findOne,
+    create,
+    update
 }

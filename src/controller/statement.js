@@ -5,6 +5,21 @@ function index(req, res) {
     return res.json(customer.statement);
 }
 
+function findByDate(req, res) {
+    const { customer } = req;
+    const { date } = req.query;
+
+    const dateFormat = new Date(date + " 00:00");
+
+    const statement = customer.statement.filter(
+        (statement) =>
+            statement.created_at.toDateString() ===
+            new Date(dateFormat).toDateString()
+    );
+
+    return res.json(statement);
+}
+
 function create(req, res) {
     const { description, amount } = req.body;
     const { type } = req.params;
@@ -21,7 +36,7 @@ function create(req, res) {
     const statementOperation = {
         description: !(type === "withdraw") && description,
         amount,
-        create_at: new Date(),
+        created_at: new Date(),
         type: (type === "deposit" && "credit") || (type === "withdraw" && "debit")
     }
 
@@ -32,5 +47,6 @@ function create(req, res) {
 
 module.exports = {
     index,
+    findByDate,
     create
 }
