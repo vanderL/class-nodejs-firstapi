@@ -45,8 +45,17 @@ function create(req, res) {
     return res.status(201).send();
 }
 
+function balance(req, res) {
+    const { customer } = req;
+
+    const balance = getBalance(customer.statement);
+
+    return res.json(balance);
+}
+
 module.exports = {
     index,
     findByDate,
-    create
+    create,
+    balance
 }

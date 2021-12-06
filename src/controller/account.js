@@ -33,9 +33,18 @@ function update(req, res) {
     return res.json(customer)
 }
 
+function remove(req, res) {
+    const { customer } = req;
+
+    customers.splice(customer, 1);
+
+    return res.status(200).json(customers);
+}
+
 module.exports = {
     index,
     findOne,
     create,
-    update
+    update,
+    remove
 }
