@@ -12,7 +12,8 @@ app.get("/account", Account.index);
 app.post("/account", checkCPfAlreadyExists, Account.create);
 
 // app.use(verifyIfExistsAccountCPF)
-app.get("/statement/:cpf", verifyIfExistsAccountCPF, Statement.index);
+app.get("/statement/", verifyIfExistsAccountCPF, Statement.index);
+app.post("/statement/:type", verifyIfExistsAccountCPF, Statement.create);
 
 app.listen(3333, () => {
     console.log('Start')

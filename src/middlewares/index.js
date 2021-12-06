@@ -1,4 +1,3 @@
-const { request } = require('express');
 const { customers } = require('../data');
 
 function checkCPfAlreadyExists(req, res, next) {
@@ -14,7 +13,7 @@ function checkCPfAlreadyExists(req, res, next) {
 }
 
 function verifyIfExistsAccountCPF(req, res, next) {
-    const { cpf } = req.params;
+    const { cpf } = req.headers;
 
     const customerAlreadyExists = customers.find((customer) => customer.cpf === cpf);
 
