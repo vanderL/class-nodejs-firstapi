@@ -2,19 +2,17 @@ const { customers } = require('../data');
 const { v4: uuidv4 } = require("uuid");
 
 function index(req, res) {
-
-    return res.json(customers)
+    const { customer } = req;
+    return res.json(customer.statement);
 }
 
 function create(req, res) {
     const { cpf, name } = req.body;
 
-    const id = uuidv4();
-
     customers.push({
         cpf,
         name,
-        id,
+        id: uuidv4(),
         statement: []
     });
 

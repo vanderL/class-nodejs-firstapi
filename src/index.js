@@ -1,14 +1,18 @@
 const express = require('express');
-const { index, create } = require('./controller/index');
-const { checkCPf } = require('./middlewares/index');
+const Account = require('./controller/account');
+const Statement = require('./controller/statement');
+const { checkCPfAlreadyExists, verifyIfExistsAccountCPF } = require('./middlewares/index');
 
 const app = express();
 
 app.use(express.json());
 
 
-app.get("/account", index);
-app.post("/account", checkCPf, create);
+app.get("/account", Account.index);
+app.post("/account", checkCPfAlreadyExists, Account.create);
+
+// app.use(verifyIfExistsAccountCPF)
+app.get("/statement/:cpf", verifyIfExistsAccountCPF, Statement.index);
 
 app.listen(3333, () => {
     console.log('Start')
